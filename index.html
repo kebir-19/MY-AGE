@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حساب العمر</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f4f4f4;
+    }
+    h1 {
+        color: #333;
+    }
+    #ageCalculator {
+        margin-top: 50px;
+    }
+    label {
+        font-size: 18px;
+        margin-right: 10px;
+    }
+    input[type="date"] {
+        padding: 5px;
+        font-size: 16px;
+    }
+    button {
+        padding: 8px 20px;
+        font-size: 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    #result {
+        margin-top: 20px;
+        font-size: 20px;
+    }
+</style>
+</head>
+<body>
+    <h1>مرحبا بك في حساب العمر</h1>
+    <div id="ageCalculator">
+        <label for="birthdate">تاريخ الميلاد:</label>
+        <input type="date" id="birthdate">
+        <button onclick="calculateAge()">احسب العمر</button>
+        <button onclick="resetForm()">إعادة الحساب</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function calculateAge() {
+            var birthdate = new Date(document.getElementById("birthdate").value);
+            var today = new Date();
+            var ageYears = today.getFullYear() - birthdate.getFullYear();
+            var ageMonths = today.getMonth() - birthdate.getMonth();
+            var ageDays = today.getDate() - birthdate.getDate();
+
+            if (ageDays < 0) {
+                ageMonths--;
+                var daysInMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+                ageDays += daysInMonth;
+            }
+            if (ageMonths < 0) {
+                ageYears--;
+                ageMonths += 12;
+            }
+
+            document.getElementById("result").innerText = "عمرك هو " + ageYears + " سنة و " + ageMonths + " شهر و " + ageDays + " يوم.";
+        }
+
+        function resetForm() {
+            document.getElementById("birthdate").value = "";
+            document.getElementById("result").innerText = "";
+        }
+    </script>
+</body>
+</html>
